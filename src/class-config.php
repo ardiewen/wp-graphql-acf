@@ -519,6 +519,15 @@ class Config {
 								$post_object = get_post( $post_id );
 								if ( $post_object instanceof \WP_Post ) {
 									$post_model     = new Post( $post_object );
+
+									/**
+									 * Allow for filtering of the post model. In case a non-core defined post-type is being targeted.
+									 *
+									 * @param mixed|null  $post_model  GraphQL Model
+									 * @param mixed|null  $post_object Root ACF Field value.
+									 * @param AppContext  $context     AppContext instance.
+						 			 * @param ResolveInfo $info        ResolveInfo instance.
+									 */
 									$relationship[] = apply_filters( 'graphql_acf_relationship_model', $post_model, $post_object, $context, $info );
 								}
 							}
