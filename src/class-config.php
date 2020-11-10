@@ -321,6 +321,7 @@ class Config {
 			'email',
 			'url',
 			'password',
+			'acfe_slug',
 			'image',
 			'file',
 			'wysiwyg',
@@ -396,6 +397,7 @@ class Config {
 			case 'message':
 			case 'oembed':
 			case 'password':
+			case 'acfe_slug':
 			case 'wysiwyg':
 			case 'url':
 				// Even though Selects and Radios in ACF can _technically_ be an integer
@@ -517,7 +519,7 @@ class Config {
 								$post_object = get_post( $post_id );
 								if ( $post_object instanceof \WP_Post ) {
 									$post_model     = new Post( $post_object );
-									$relationship[] = $post_model;
+									$relationship[] = apply_filters( 'graphql_acf_relationship_model', $post_model, $post_object, $context, $info );
 								}
 							}
 						}
